@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Galaxy — Posters</title>
+<style>
+  :root{
+    --bg:#0f1222; --surface:#171b30; --text:#edeffa;
+    --muted:#8b90ae; --stroke:#262b48; --accent:#e8b85c;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:system-ui,Arial,sans-serif;line-height:1.5;}
+  h1,h2{font-family:Georgia,serif;font-weight:500;}
+  a{color:inherit;}
+  header{display:flex;justify-content:space-between;align-items:center;
+    padding:1.25rem 2rem;border-bottom:1px solid var(--stroke);}
+  header a{text-decoration:none;font-size:1.4rem;}
+  main{max-width:1000px;margin:0 auto;padding:2rem;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;}
+  .card{background:var(--surface);border:1px solid var(--stroke);border-radius:6px;
+    overflow:hidden;display:flex;flex-direction:column;}
+  .card img{width:100%;aspect-ratio:3/4;object-fit:cover;}
+  .card__body{padding:0.9rem;display:flex;flex-direction:column;gap:0.6rem;}
+  .card__title{font-family:Georgia,serif;font-size:1.15rem;}
+  .card__note{color:var(--muted);font-size:0.8rem;}
+  .card__options{display:flex;gap:0.5rem;flex-wrap:wrap;font-size:0.85rem;}
+  .card__options label{display:flex;align-items:center;gap:0.3rem;}
+  .card__price{font-family:Georgia,serif;font-size:1.3rem;}
+  .btn{display:inline-block;text-align:center;padding:0.65rem 1rem;border-radius:6px;
+    text-decoration:none;font-weight:600;border:1px solid var(--stroke);}
+  .btn--primary{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+  footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:2rem;}
+  .note{background:var(--surface);border:1px solid var(--stroke);border-radius:6px;
+    padding:1rem;margin-bottom:2rem;font-size:0.9rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#">Galaxy</a>
+</header>
+
+<main>
+  <h1>Space posters, printed on demand</h1>
+
+  <!--
+    HOW TO USE THIS FILE (read this before uploading)
+    ---------------------------------------------------
+    1. This is ONE plain HTML file. No build, no npm, no server needed.
+       Upload it exactly as-is to any website host: your hosting
+       control panel, FTP, GitHub Pages, Netlify drag-and-drop, etc.
+
+    2. Payment: go to https://dashboard.stripe.com/payment-links and
+       create a free Payment Link for each price below (no code):
+         - Orion Nebula, no frame  -> $20
+         - Orion Nebula, framed    -> $55
+         - Andromeda, no frame     -> $20
+         - Andromeda, framed       -> $55
+       Stripe gives you a link like https://buy.stripe.com/xxxxx
+       Paste each link into the matching href="PASTE_LINK_HERE" below.
+       Stripe handles the card payment, receipt email, and security —
+       you don't need a backend at all.
+
+    3. Poster photos: replace the image src="..." lines below with
+       your own photos (upload the images to the same folder as this
+       file, or use any image link).
+
+    4. Frame toggle here is just a price display for the customer —
+       make sure you created a separate Payment Link for the framed
+       price, as in step 2, since Stripe needs one link per price.
+  -->
+
+  <p class="note">
+    Posters are printed and framed by our print partner on demand —
+    not hand-painted or mass-produced in advance.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="orion.jpg" alt="Orion Nebula poster">
+      <div class="card__body">
+        <span class="card__title">Orion Nebula</span>
+        <span class="card__note">Printed on matte archival paper.</span>
+        <div class="card__options">
+          <label><input type="radio" name="frame-orion" checked onclick="setPrice('orion',20,'PASTE_LINK_ORION_NOFRAME')"> No frame ($20)</label>
+          <label><input type="radio" name="frame-orion" onclick="setPrice('orion',55,'PASTE_LINK_ORION_FRAMED')"> Framed ($55)</label>
+        </div>
+        <span class="card__price" id="price-orion">$20</span>
+        <a class="btn btn--primary" id="buy-orion" href="PASTE_LINK_ORION_NOFRAME" target="_blank" rel="noopener">Buy now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="andromeda.jpg" alt="Andromeda Galaxy poster">
+      <div class="card__body">
+        <span class="card__title">Andromeda Galaxy</span>
+        <span class="card__note">Printed on matte archival paper.</span>
+        <div class="card__options">
+          <label><input type="radio" name="frame-andromeda" checked onclick="setPrice('andromeda',20,'PASTE_LINK_ANDROMEDA_NOFRAME')"> No frame ($20)</label>
+          <label><input type="radio" name="frame-andromeda" onclick="setPrice('andromeda',55,'PASTE_LINK_ANDROMEDA_FRAMED')"> Framed ($55)</label>
+        </div>
+        <span class="card__price" id="price-andromeda">$20</span>
+        <a class="btn btn--primary" id="buy-andromeda" href="PASTE_LINK_ANDROMEDA_NOFRAME" target="_blank" rel="noopener">Buy now</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  &copy; <span id="year"></span> Galaxy. Posters printed and framed on demand.
+  Payment secured by Stripe.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function setPrice(id, amount, link){
+    document.getElementById('price-' + id).textContent = '$' + amount;
+    document.getElementById('buy-' + id).setAttribute('href', link);
+  }
+</script>
+
+</body>
+</html>
